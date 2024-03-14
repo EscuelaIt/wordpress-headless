@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script defer src="game.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container" id="characters-container"></div>
+
+  <template id="characterTemplate">
+    <div class="card">
+      <h2 class="card__title"></h2>
+      <div class="card__info">
+        <p></p>
+        <div class="card__combat">
+          <span></span>
+          <span></span>
+        </div>
+        <div class="card__buttons">
+          <button class="card__select">Jugar</button>
+          <button class="card__view">Ver</button>
+          <a class="card__link">Ir</a>
+        </div>
+      </div>
+    </div>
+  </template>
+
+
+  <template id="modalTemplate">
+    <div class="card-modal">
+      <h2 class="card__title"></h2>
+      <div class="card__info">
+        <p></p>
+        <div class="card__combat">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <img class="card__img" src="" alt="">
+      <button class="card__close">Cerrar</button>
+    </div>
+  </template>
+
+  <template id="modal-result">
+    <div class="result" id="result-msg">
+      <p class="result__msg"></p>
+      <button class="result__close">Cerrar</button>
+    </div>
+  </template>
+  
+
+  
+</body>
+</html>

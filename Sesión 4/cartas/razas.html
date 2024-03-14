@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script defer src="razas.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1 class="raza-title"></h1>
+
+  <div class="container" id="characters-container"></div>
+
+  <button class="btn_back" onclick="history.back()">Volver</button>
+
+
+  <template id="characterTemplate">
+    <div class="card">
+      <h2 class="card__title"></h2>
+      <div class="card__info">
+        <p></p>
+        <div class="card__combat">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </template>
+
+</body>
+</html>
