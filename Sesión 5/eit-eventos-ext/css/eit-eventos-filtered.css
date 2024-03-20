@@ -1,0 +1,52 @@
+.eventos {
+  box-sizing: border-box;
+  display: grid;
+  /* grid-template-columns: 50% 50%; */
+  font-family: Arial, Helvetica, sans-serif;
+  gap: 1rem;
+  & .evento,
+  & .evento-card {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid #222;
+    border-radius: 6px;
+    box-shadow: 0 0 5px #666;
+    &.eit-hidden {
+      display: none;
+    }
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &.evento-filtered {
+      position: relative;
+      border: 1px solid;
+      & .evento-title {
+        margin: 0;
+        font-size: 2rem;
+        font-family: Arial, Helvetica, sans-serif;
+        position: initial;
+      }
+      & .evento-datos {
+        display: flex;
+        justify-content: space-between;
+      }
+      & .evento-link {
+        text-decoration: none;
+        position: initial;
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+        }
+      }
+    }
+    
+  }
+
+}

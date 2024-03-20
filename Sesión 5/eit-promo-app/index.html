@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script defer src="eventos.js"></script>
+    <style>
+      .eit-hidden {
+        display: none;
+      }
+    </style>
+</head>
+<body>
+    <h1>Página de inicio</h1>
+    <a href="login.html">Iniciar sesión</a>
+    <a href="form.html">Ver contenido privado</a>
+
+    <div id="map" style="height: 400px;"></div>
+
+    <section id="eventos">
+      <h2>Eventos</h2>
+      <div id="tipos"></div>
+      <div id="eventos-info"></div>
+    </section>
+
+    <template id="eventos-template">
+      <article class="evento-card">
+        <h2 class="evento-title"></h2>
+        <div class="info">
+          <div class="evento-location"></div>
+          <div class="evento-date"></div>
+        </div>
+      </article>
+    </template>
+
+</body>
+</html>

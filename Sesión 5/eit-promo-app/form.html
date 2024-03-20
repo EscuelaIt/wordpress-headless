@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script defer src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+  <style>
+    form {
+      display: grid;
+    }
+  </style>
+  <form id="createEventForm" action="">
+    <label for="title">Nombre del evento</label>
+    <input type="text" name="" id="title">
+
+    <label for="tipos">Tipo de evento</label>
+    <select name="" id="tipos"></select>
+
+    <label for="desc">Descripción</label>
+    <textarea name="" id="desc" cols="30" rows="10"></textarea>
+
+    <label for="price">Precio</label>
+    <input type="number" name="" id="price">
+
+    <label for="location">Localidad</label>
+    <input type="text" name="" id="location">
+
+    <label for="date">Fecha</label>
+    <input type="text" name="" id="date">
+
+    <label for="lat">Latitud</label>
+    <input type="text" id="lat">
+
+    <label for="lon">Longitud</label>
+    <input type="text" id="lon">
+
+    <input type="submit" value="Crear Evento">
+
+  </form>
+  <script>
+
+    let token;
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // Verificar si el token existe en sessionStorage
+      token = sessionStorage.getItem('eit-token');
+      if (!token) {
+          // Si el token no existe, redirigir a la página de login
+          window.location.href = 'login.html';
+      }
+    });
+
+    /* Preparar formulario */
+    
+    // Inicializa Flatpickr con habilitación de selección de tiempo
+    flatpickr("#date", {
+      enableTime: true, // Habilita la selección de hora
+      dateFormat: "Y-m-d H:i:00", // Formato de fecha y hora deseado (YYYY-MM-DD HH:MM:SS)
+      defaultHour: 0, // Establece la hora predeterminada en 00:00
+      defaultMinute: 0, // Establece el minuto predeterminado en 00
+      minuteIncrement: 1 // Incremento de minutos
+    });
+
+    // fetch('http://eitagenda.local/wp-json/wp/v2/tipo')
+    fetch('https://agenda.nemesisweb.dev/wp-json/wp/v2/tipo')
+    .then( x => x.json() )
+    .then( tipo => {
+      const select = document.querySelector('#tipos')
+      tipo.forEach( t => { console.log(t);
+        const op = document.createElement('option');
+        op.innerText = t.name
+        op.value = t.id
+        select.appendChild(op);
+      })
+    })
+
+
+    /* Enviar formulario */
+
+    document.getElementById("createEventForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita l'enviament del formulari per defecte
+        // Obtener los valores del formulario
+        var title = document.getElementById("title").value;
+        var tipo = document.getElementById("tipos").value;
+        var desc = document.getElementById("desc").value;
+        var price = document.getElementById("price").value;
+        var date = document.getElementById("date").value;
+        var location = document.getElementById("location").value;
+        var lat = document.getElementById("lat").value;
+        var lon = document.getElementById("lon").value;
+
+        // Objeto con los datos a enviar
+        var data = {
+            title: title,
+            tipo: tipo,
+            content: desc,
+            acf: {
+              localidad: location,
+              precio: price,
+              fecha: date,
+              coordenadas: {
+                latitud: lat,
+                longitud: lon,
+              },
+            },
+            // status: 'publish' // Estado del evento (publicado)
+            status: 'draft' // Estado del evento (publicado)
+        };
+
+        // Enviar los datos a la REST API de WordPress utilizando Axios
+        // axios.post('http://eitagenda.local/wp-json/wp/v2/eventos', data, {
+          axios.post('https://agenda.nemesisweb.dev/wp-json/wp/v2/eventos', data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // usamos el token generado en el login
+            }
+        })
+        .then(response => {
+            alert('Evento guardado exitosamente');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error al guardar el evento');
+        });
+    });
+
+
+  </script>
+</body>
+</html>
